@@ -1,15 +1,14 @@
-import React from 'react'
-import { Batman_homePage } from '../assets'
+import React from "react";
+import { Batman_homePage } from "../assets";
 
 const Home = () => {
   return (
-  <section  className="home"
-  style={{
-         background: `url(${Batman_homePage}) `,
-       }}>
-Home
-  </section>
-  )
-}
+    <section className="flex justify-start items-center flex-col h-screen">
+      <div className="relative w-full h-full">
+        <img src={Batman_homePage} className="w-full h-full object-cover opacity-90" />
+      </div>
+    </section>
+  );
+};
 
-export default Home
+export default Home;

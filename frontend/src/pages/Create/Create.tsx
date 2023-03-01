@@ -42,7 +42,7 @@ const Create = () => {
   <button className='generate'>Generate</button>
   
 </form>
-<div className="">
+<div className="share">
 <p>Share your image with the community</p>
 <button>Share With Community</button>
 </div>

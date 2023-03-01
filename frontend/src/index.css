@@ -39,3 +39,6 @@ li{
 input[type=text]:focus{
   outline: none!important;
 }
+button{
+  cursor: pointer;
+}

@@ -3,6 +3,7 @@ import { Home, Create } from "./pages";
 import { Footer, Navbar } from "./components";
 
 function App() {
+  
   return (
     <BrowserRouter>
       <Navbar />

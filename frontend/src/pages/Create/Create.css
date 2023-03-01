@@ -75,3 +75,23 @@
     height: 75%;
     opacity: 0.4;
 }
+.generate{
+    padding: 1em 1.3em;
+    font-size: 1.3rem;
+    background: rgb(4, 66, 4);
+    color: var(--color-white);
+    border-radius: 0.5rem;
+    border: none;
+}
+.share{
+    margin-top: 5rem;
+    margin-bottom: -6rem;
+}
+.share button{
+    padding: 1em 1.3em;
+    font-size: 1.3rem;
+    background: rgb(66, 4, 40);
+    color: var(--color-white);
+    border-radius: 0.5rem;
+    border: none;
+}

@@ -1,2 +1,11 @@
 import { SurpriseMePrompts } from "../surpriseMe";
-console.log(SurpriseMePrompts)
+
+
+const randomPrompt = (arr:{}[])=>{
+    let randomNumber = Math.floor(Math.random()* arr.length)
+    return arr[randomNumber];
+}
+
+export {
+    randomPrompt
+}

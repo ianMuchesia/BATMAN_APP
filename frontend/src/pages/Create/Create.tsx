@@ -1,7 +1,19 @@
 import React from 'react'
 import { BatmanCreate, preview } from '../../assets'
 import './Create.css'
+import { randomPrompt } from '../../utils'
+import { SurpriseMePrompts } from '../../surpriseMe'
 const Create = () => {
+
+
+
+
+
+
+  const handleRandomPrompt=()=>{
+      console.log(randomPrompt(SurpriseMePrompts))
+  }
+
   return (
     <section
     style={{
@@ -30,7 +42,7 @@ const Create = () => {
     Prompt
   </label>
   
-  <button type='button'>Surprise Me!</button>
+  <button type='button' onClick={handleRandomPrompt}>Surprise Me!</button>
   </div>
   <input type="text"
   id='prompt'

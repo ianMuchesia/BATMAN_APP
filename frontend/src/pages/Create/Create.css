@@ -71,9 +71,8 @@
 }
 .generate-image img{
     object-fit: contain;
-    width: 75%;
-    height: 75%;
-    opacity: 0.4;
+    height: auto;
+    min-width: 100%;
 }
 .generate{
     padding: 1em 1.3em;

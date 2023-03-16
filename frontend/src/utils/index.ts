@@ -1,7 +1,8 @@
-import { SurpriseMePrompts } from "../surpriseMe";
+import { SurpriseMePrompt } from "../@types/surpriseMe";
 
 
-const randomPrompt = (arr:{}[])=>{
+
+const randomPrompt = (arr:SurpriseMePrompt[])=>{
     let randomNumber = Math.floor(Math.random()* arr.length)
     return arr[randomNumber];
 }

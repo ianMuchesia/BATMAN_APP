@@ -1,17 +1,41 @@
-import React from 'react'
+import React, { ReactElement, useState } from 'react'
 import { BatmanCreate, preview } from '../../assets'
 import './Create.css'
 import { randomPrompt } from '../../utils'
 import { SurpriseMePrompts } from '../../surpriseMe'
+
 const Create = () => {
 
 
+
+  const [ form , setForm ] = useState({
+    name: "",
+    prompt:"",
+  })
+
+  const handleFormChange=(e:  React.ChangeEvent<HTMLInputElement>)=>{
+    setForm(prevForm=>{
+     const {name , value} = e.target
+      return{
+        ...prevForm,
+        [name]: value
+      }
+    })
+  }
+
+  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
+    e.preventDefault()
+    console.log(form)
+    
+  }
 
 
 
 
   const handleRandomPrompt=()=>{
-      console.log(randomPrompt(SurpriseMePrompts))
+      const {prompt} = randomPrompt(SurpriseMePrompts)
+      setForm({...form, prompt})
+     
   }
 
   return (
@@ -28,14 +52,17 @@ const Create = () => {
   </h1>
   <p>Bring your imagination to life and generate unique Batman images with the power of DALL-E OpenAI API.</p>
 </div>
-<form className='form-input'>
+<form className='form-input' onSubmit={handleFormSubmit}>
   <label htmlFor='yourName'>
     Your Name
   </label>
   <input type="text"
-    placeholder='ian'
+    placeholder='enter your name here'
     className='input-name'
     id='yourName'
+    name="name"
+    value={form.name}
+    onChange={handleFormChange}
   />
   <div className='prompt-container'>
   <label htmlFor="prompt">
@@ -46,7 +73,11 @@ const Create = () => {
   </div>
   <input type="text"
   id='prompt'
-  className='prompt-input' />
+  className='prompt-input'
+  name="prompt"
+  value={form.prompt}
+  onChange={handleFormChange}
+   />
 
   <div className="generate-image">
     <img src={preview} alt="previewing" />

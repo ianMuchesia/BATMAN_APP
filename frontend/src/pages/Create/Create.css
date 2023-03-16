@@ -52,11 +52,11 @@
 }
 .prompt-input{
     border:none;
-    padding: 0.75em 1em;
+    padding: 1em 1em;
     border-radius: 0.5rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
     background-color: #814e4e80;
-    min-width: 40%;
+    min-width: 50%;
 }
 .generate-image{
     width: 256px;
@@ -94,4 +94,11 @@
     color: var(--color-white);
     border-radius: 0.5rem;
     border: none;
+}
+@media screen and (max-width:768px) {
+    .prompt-input{
+        min-width:100%;
+        font-size: 0.85rem;
+        
+    }    
 }

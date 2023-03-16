@@ -1,10 +1,11 @@
 const express = require('express')
-const postRequest  = require('../controllers/postDalleRoute')
+const {postRequest, generateImageRequest}  = require('../controllers/postDalleRoute')
 const getRequest  = require('../controllers/getDalleRoute')
 const router = express.Router()
 
 
-router.post('/', postRequest)
+router.post('/community', postRequest)
+router.post('/image', generateImageRequest)
 router.get('/', getRequest)
 
 

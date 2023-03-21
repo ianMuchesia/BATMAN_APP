@@ -52,7 +52,7 @@ const postRequest = async (req, res) => {
   const cloudinaryResponse = await cloudinary.uploader.upload(imageUrl, {
     public_id: name,
   });
-  const cloudinaryImageUrl = cloudinaryResponse.secure_url;
+  let cloudinaryImageUrl = cloudinaryResponse.secure_url;
 
 
    

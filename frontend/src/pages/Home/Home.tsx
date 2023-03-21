@@ -1,20 +1,24 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { BatmanHome } from '../../assets'
 import './Home.css'
 import useSWR from 'swr'
 import axios from 'axios'
+import { Card, Spinner } from '../../components'
+import { Posts } from '../../@types/posts'
 
 const fetcher = (url:string) => axios.get(url).then(res => res.data)
 
 const Home = () => {
+  const [posts , setPosts] = useState<Posts[]>([])
 
-const {data, error, isLoading} = useSWR('http://localhost:3000/api/v1/dalle', fetcher)
+const { error, isLoading} = useSWR<Posts[]>('http://localhost:3000/api/v1/dalle', fetcher, {
+  onSuccess: (data:Posts[])=>{
+    setPosts(data)
+  }
+})
 
-if(isLoading){
-  console.log(true)
-}else{
-  console.log(data)
-}
+
+
 
   return (
     <section
@@ -26,12 +30,24 @@ if(isLoading){
       <div className="home-container">
         <div className="home-content">
           <h1>Welcome to Batman</h1>
-          <p>
+          <p className='welcome-text'>
             Batman is a game where you can play a game of batman.
           </p>
-  
+         
+          {
+            isLoading?<Spinner/> :(
+              <div className="cards-container">
+                {posts && posts.map(post=><Card  key={post._id} post={post}/>)}
+              </div>
+            )
+            
+
+          }
+        
+          
       </div>
       </div>
+     
     </section>
   )
 }

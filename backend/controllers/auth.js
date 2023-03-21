@@ -1,57 +1,40 @@
-const mongoose = require('mongoose');
+const User = require("../models/User")
+const {BadRequestError, UnauthenticatedError} = require('../errors')
+const { StatusCodes } = require("http-status-codes")
 
-const Schema = mongoose.Schema
 
-const UserSchema = new Schema({
-    name: {
-        type: String,
-        required: [true, 'please provide your name'],
-        minlength: 3,
-        maxlenght: 50,
+//register user
 
-    },
-    email:{
-        type: String,
-        required: [true ,'please provide your email'],
-        match: [
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-            "please provie valid email",
-          ],
-        unique: true,
-    },
-    password:{
-        type: String,
-        required: [ true, "please provide password"],
-        minlength: 6
+const register = async(req, res)=>{
+    const user = await User.create({...req.body})
+
+    const token = user.createJWT()
+    res.status(StatusCodes.CREATED).json({user:user.name}, token);
+}
+
+const login = async(req, res)=>{
+    const {email, password} = req.body
+    if(!email||!password){
+        throw new BadRequestError('please provide email and password')
     }
-})
+
+    const user = await User.findOne({email})
 
 
+    if(!user){
+        throw new UnauthenticatedError('Invalid Credentials')
+    }
 
+    const isPasswordCorrect = await user.comparePassword(password)
 
-
-UserSchema.pre("save", async function(next){
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(this.password, salt)
-    next()
-})
-
-
-UserSchema.methods.createJWT = function(){
-    return jwt.sign(
-        
-           { userId: this._id, name: this.name},
-            process.env.JWT_SECRET,
-            {expiresIn : process.env.JWT_LIFETIME}
-        
-    )
+    if(!isPasswordCorrect){
+        throw new UnauthenticatedError('Invalid Creedentials , please check your email or password')
+    }
+    const token = user.createJWT()
+    res.status(StatusCodes.OK).json({user:{name:user.name}, token})
 }
 
 
-UserSchema.methods.comparePassword = async function(candidatePassword){
-const isMatch = await bcrypt.compare(candidatePassword, this.password);
-return isMatch
-
+module.exports = {
+    register,login
 }
-const User = mongoose.model("User", UserSchema)
-module.exports = User

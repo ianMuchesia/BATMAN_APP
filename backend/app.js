@@ -6,8 +6,7 @@ const DalleRouter = require('./routes/route')
 const errorHandlerMiddleware = require('./middlewares/error-handler')
 const notFound = require('./middlewares/not-found')
 const connectDB = require('./database/connect')
-
-
+const authenticateUser = require('./middlewares/authentication')
 const app = express()
 
 const PORT = process.env.port || 3000
@@ -24,7 +23,7 @@ app.use(notFound)
 
 const start = async()=>{
     try {
-       //await connectDB(process.env.MONGO_URI)
+       await connectDB(process.env.MONGO_URI)
         app.listen(PORT,()=>{
             console.log(`server is listening at port ${PORT}`)
         })

@@ -15,7 +15,9 @@ const postSchema = new Schema({
         type: String,
         required: [true, 'image URL is a must']
     }
-})
+},
+{timestamps: true}
+)
 
 
 const Post = mongoose.model("Book", postSchema);

@@ -5,15 +5,17 @@ import { randomPrompt } from '../../utils'
 import { SurpriseMePrompts } from '../../surpriseMe'
 import axios from 'axios'
 import { Loader } from '../../components'
+import { useNavigate } from 'react-router-dom'
 
 const Create = () => {
 
+  const navigate = useNavigate()
 
 
   const [ form , setForm ] = useState({
     name: "",
     prompt:"",
-    photo:""
+    imageUrl:""
   })
   const [loading , setLoading] = useState(false)
 
@@ -37,7 +39,7 @@ const Create = () => {
     setForm(prevForm=>{
       return{
         ...prevForm,
-        photo:data.imageUrl
+        imageUrl:data.imageUrl
       }
     })
     } catch (error) {
@@ -62,11 +64,24 @@ const Create = () => {
   const displayImage=()=>{
     if(loading){
       return <Loader/>
-    }else if(form.photo){
-      return <img src={form.photo} alt="previewing" />
+    }else if(form.imageUrl){
+      return <img src={form.imageUrl} alt="previewing" />
     }else{
       return <img src={preview} alt="previewing" />
     }
+  }
+
+  const handlePost = async()=>{
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/v1/dalle/community', form)
+     if(response.data.msg === 'Success!'){
+      navigate('/')
+     }
+     
+    } catch (error) {
+      console.log(error)
+    } 
   }
 
   return (
@@ -118,7 +133,7 @@ const Create = () => {
 </form>
 <div className="share">
 <p>Share your image with the community</p>
-<button>Share With Community</button>
+<button onClick={handlePost}>Share With Community</button>
 </div>
 
     </div>

@@ -47,22 +47,21 @@ const postRequest = async (req, res) => {
   if(!name || !imageUrl || !prompt ){
     throw new BadRequestError("Please provide the imageURl, prompt and name ")
   }
+ 
 
-   const cloudinaryResponse = await cloudinary.uploader.upload(imageUrl, {
+  const cloudinaryResponse = await cloudinary.uploader.upload(imageUrl, {
     public_id: name,
   });
   const cloudinaryImageUrl = cloudinaryResponse.secure_url;
 
+
+   
+   
     const post = await Post.create({
-      imageURl: cloudinaryImageUrl,
-      name,
-      prompt,
-    }) 
-
-    console.log(error)
- 
-  
-
+        imageUrl: cloudinaryImageUrl,
+        name,
+        prompt,
+      }) 
 
   res.status(StatusCodes.CREATED). json({msg: "Success!"})
 

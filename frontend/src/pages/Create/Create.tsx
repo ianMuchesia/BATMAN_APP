@@ -3,6 +3,8 @@ import { BatmanCreate, preview } from '../../assets'
 import './Create.css'
 import { randomPrompt } from '../../utils'
 import { SurpriseMePrompts } from '../../surpriseMe'
+import axios from 'axios'
+import { Loader } from '../../components'
 
 const Create = () => {
 
@@ -11,7 +13,9 @@ const Create = () => {
   const [ form , setForm ] = useState({
     name: "",
     prompt:"",
+    photo:""
   })
+  const [loading , setLoading] = useState(false)
 
   const handleFormChange=(e:  React.ChangeEvent<HTMLInputElement>)=>{
     setForm(prevForm=>{
@@ -23,10 +27,28 @@ const Create = () => {
     })
   }
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>)=>{
+  const handleFormSubmit = async(e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault()
-    console.log(form)
+    setLoading(true)
+    try {
+      const {data} = await axios.post('http://localhost:3000/api/v1/dalle/image',{
+      name:form.name, prompt:form.prompt
+    })
+    setForm(prevForm=>{
+      return{
+        ...prevForm,
+        photo:data.imageUrl
+      }
+    })
+    } catch (error) {
+      console.log(error)
+    }finally{
+      setLoading(false)
+    }
+   
     
+    
+
   }
 
 
@@ -36,6 +58,15 @@ const Create = () => {
       const {prompt} = randomPrompt(SurpriseMePrompts)
       setForm({...form, prompt})
      
+  }
+  const displayImage=()=>{
+    if(loading){
+      return <Loader/>
+    }else if(form.photo){
+      return <img src={form.photo} alt="previewing" />
+    }else{
+      return <img src={preview} alt="previewing" />
+    }
   }
 
   return (
@@ -80,7 +111,7 @@ const Create = () => {
    />
 
   <div className="generate-image">
-    <img src={preview} alt="previewing" />
+  {displayImage()}
   </div>
   <button className='generate'>Generate</button>
   

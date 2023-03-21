@@ -25,7 +25,7 @@ const generateImageRequest = async (req, res) => {
   }
 
   const response = await openai.createImage({
-    prompt: "not cartoon picture of" + prompt,
+    prompt: prompt,
     n: 1,
     size: "256x256",
   });

@@ -13,6 +13,10 @@
   padding: 1.2em 3em;
   border-bottom:0.2px solid rgb(119, 57, 57);
 }
+.navbar-right{
+  display: flex;
+  gap:2em;
+}
 .nav-bar li{
   background-color: var(--color-red);
   padding: 0.6em 1em;
@@ -22,4 +26,8 @@
 .link{
   text-decoration: none;
    color:var(--color-white);
+}
+.login{
+  display: flex;
+  align-items: center;
 }

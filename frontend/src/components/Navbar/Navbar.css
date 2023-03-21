@@ -15,11 +15,12 @@
 }
 .navbar-right{
   display: flex;
-  gap:2em;
+  gap:0.3em;
 }
 .nav-bar li{
   background-color: var(--color-red);
-  padding: 0.6em 1em;
+  padding: 0.5em 0.8em;
+  font-size: 0.75em;
   border-radius: 5%;
 
 }
@@ -30,4 +31,22 @@
 .login{
   display: flex;
   align-items: center;
+}
+
+@media screen and (min-width:480px) {
+  .nav-bar{
+   
+    padding: 1.2em 3em;
+   
+  }
+  .nav-bar li{
+  
+    padding: 0.6em 1em;
+   
+    font-size: 1em;
+  }
+  .navbar-right{
+  
+    gap:2em;
+  }
 }

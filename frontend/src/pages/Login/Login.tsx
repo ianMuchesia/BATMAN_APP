@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { AiOutlineMail } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 
@@ -6,7 +6,41 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { BatmanHome } from "../../assets";
 import "./login.css";
 import { Link } from "react-router-dom";
+import { set } from "mongoose";
 const Login = () => {
+
+  const [loginForm , setLoginForm ] = useState({
+    email:"",
+    password:""
+  })
+
+
+  const handleChange=(event:React.ChangeEvent<HTMLInputElement>)=>{
+    setLoginForm((prevLoginForm)=>{
+      const {name , value } = event.target
+      return{
+        ...prevLoginForm,
+        [name]:value
+      }
+    })
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+  const handleSubmit =(event: React.FormEvent<HTMLFormElement>)=>{
+    event.preventDefault()
+    console.log(loginForm)
+  }
   return (
     <section
       style={{
@@ -15,7 +49,7 @@ const Login = () => {
       className="login-section"
     >
       <div className="login-section-container">
-        <form className="login-card">
+        <form className="login-card" onSubmit={handleSubmit}>
           <h1>Log in</h1>
        
           <div className="field">
@@ -26,6 +60,9 @@ const Login = () => {
               autoComplete="off"
               placeholder="Email"
               className="input-field"
+              name="email"
+              value={loginForm.email}
+              onChange={handleChange}
             />
           </div>
           <div className="field">
@@ -34,7 +71,11 @@ const Login = () => {
             <input type="Password" 
             autoComplete="off" 
             className="input-field"
-            placeholder="Password" />
+            placeholder="Password"
+            name="password"
+            value={loginForm.password} 
+            onChange={handleChange}
+            />
           </div>
           <button className="btn-login" type="submit">
             Login

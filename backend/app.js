@@ -7,6 +7,7 @@ const errorHandlerMiddleware = require('./middlewares/error-handler')
 const notFound = require('./middlewares/not-found')
 const connectDB = require('./database/connect')
 const authenticateUser = require('./middlewares/authentication')
+const authRoute = require('./routes/auth')
 const app = express()
 
 const PORT = process.env.port || 3000
@@ -14,6 +15,8 @@ const PORT = process.env.port || 3000
 app.use(express.json())
 app.use(cors())
 
+
+app.use('/api/v1/dalle', authRoute)
 app.use('/api/v1/dalle', DalleRouter)
 
 app.use(errorHandlerMiddleware)

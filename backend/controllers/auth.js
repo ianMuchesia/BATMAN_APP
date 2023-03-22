@@ -6,6 +6,11 @@ const { StatusCodes } = require("http-status-codes")
 //register user
 
 const register = async(req, res)=>{
+   
+    const {name , email, password} = req.body
+    if(!name || !email || !password ){
+       throw new BadRequestError("please name, email and password")
+    } 
     const user = await User.create({...req.body})
 
     const token = user.createJWT()

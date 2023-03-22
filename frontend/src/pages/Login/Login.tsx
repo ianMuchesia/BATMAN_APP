@@ -7,6 +7,7 @@ import { BatmanHome } from "../../assets";
 import "./login.css";
 import { Link } from "react-router-dom";
 import { set } from "mongoose";
+import axios from "axios";
 const Login = () => {
 
   const [loginForm , setLoginForm ] = useState({
@@ -37,9 +38,15 @@ const Login = () => {
 
 
 
-  const handleSubmit =(event: React.FormEvent<HTMLFormElement>)=>{
+  const handleSubmit =async(event: React.FormEvent<HTMLFormElement>)=>{
     event.preventDefault()
-    console.log(loginForm)
+    console.log("here i am")
+   try {
+    const response =await axios.post('http://localhost:3000/api/v1/dalle/login',loginForm)
+    console.log(response)
+   } catch (error) {
+    console.log(error)
+   }
   }
   return (
     <section
@@ -60,9 +67,7 @@ const Login = () => {
               autoComplete="off"
               placeholder="Email"
               className="input-field"
-              name="email"
-              value={loginForm.email}
-              onChange={handleChange}
+             
             />
           </div>
           <div className="field">

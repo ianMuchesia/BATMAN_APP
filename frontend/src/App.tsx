@@ -1,9 +1,11 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home, Create, SignUp, Profile, Login } from "./pages";
 import { Footer, Navbar } from "./components";
+import { useAppSelector } from "./hooks/reduxHooks";
 
 function App() {
-  
+  const auth = useAppSelector(state=>state.auth)
+console.log(auth)
   return (
     <BrowserRouter>
       <Navbar />

@@ -5,6 +5,7 @@ import useSWR from 'swr'
 import axios from 'axios'
 import { Card, Spinner } from '../../components'
 import { Posts } from '../../@types/posts'
+import { useAppSelector } from '../../hooks/reduxHooks'
 
 const fetcher = (url:string) => axios.get(url).then(res => res.data)
 

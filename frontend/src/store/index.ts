@@ -1,12 +1,14 @@
 import {configureStore } from '@reduxjs/toolkit'
 import postSlice from './postSlice'
 import authSlice from './authSlice'
+import toastSlice from './toastSlice'
 
 
 const store = configureStore({
     reducer:{
         post:postSlice.reducer,
-        auth:authSlice
+        auth:authSlice,
+        toast:toastSlice,
     }
 })
 

@@ -4,9 +4,18 @@ import { BatmanHome } from "../../assets";
 import { AiOutlineMail } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
 import { BsFillPersonFill } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { useAppDispatch } from "../../hooks/reduxHooks";
+import { setLogin } from "../../store/authSlice";
+import { displayError, displayLoading, displaySuccess } from "../../store/toastSlice";
 const SignUp = () => {
+
+  const dispatch = useAppDispatch()
+
+  const navigate = useNavigate()
   const [signUpForm, setSignUpForm] = useState({
     name: "",
     email: "",
@@ -23,16 +32,28 @@ const SignUp = () => {
     });
   };
 
-  const handleSubmit = async(event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if(!signUpForm.email || !signUpForm || !signUpForm){
+    if (!signUpForm.email || !signUpForm || !signUpForm) {
       return;
     }
+   dispatch(displayLoading("loading..."))
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/dalle/register',signUpForm) 
-      console.log(response)
-    } catch (error) {
-      console.log(error)
+      const {data} = await axios.post(
+        "http://localhost:3000/api/v1/dalle/register",
+        signUpForm
+      );
+
+      console.log(data);
+      dispatch(displaySuccess('Signed in'))
+      dispatch(setLogin({
+        user:data.user.name,
+      }))
+      navigate('/')
+    } catch (error: any) {
+      console.log(error);
+
+     dispatch(displayError(error.response.data.msg))
     }
   };
 
@@ -43,6 +64,7 @@ const SignUp = () => {
       }}
       className="login-section"
     >
+      <ToastContainer />
       <div className="login-section-container">
         <form className="login-card" onSubmit={handleSubmit}>
           <h1>SIGN UP</h1>
@@ -93,6 +115,7 @@ const SignUp = () => {
               Have an account? Click here Log in
             </Link>
           </div>
+         
         </form>
       </div>
     </section>

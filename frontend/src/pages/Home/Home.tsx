@@ -6,10 +6,13 @@ import axios from 'axios'
 import { Card, Spinner } from '../../components'
 import { Posts } from '../../@types/posts'
 import { useAppSelector } from '../../hooks/reduxHooks'
-
+import { Auth } from '../../@types/Auth'
+interface Props{
+  auth:Auth;
+}
 const fetcher = (url:string) => axios.get(url).then(res => res.data)
 
-const Home = () => {
+const Home = ({auth}:Props) => {
   const [posts , setPosts] = useState<Posts[]>([])
 
 const { error, isLoading} = useSWR<Posts[]>('http://localhost:3000/api/v1/dalle', fetcher, {

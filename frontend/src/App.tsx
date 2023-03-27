@@ -4,45 +4,37 @@ import { Footer, Navbar } from "./components";
 import { useAppDispatch, useAppSelector } from "./hooks/reduxHooks";
 import { Toast } from "./@types/toast";
 import { setLogin } from "./store/authSlice";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 function App() {
-  const dispatch = useAppDispatch()
-  const auth = useAppSelector(state=>state.auth)
-console.log(auth)
+  const dispatch = useAppDispatch();
+  const auth = useAppSelector((state) => state.auth);
+  console.log(auth);
 
-const userDataStringified : string| null = localStorage.getItem('userToken')
+  const toastDetails: Toast = useAppSelector((state) => state.toast);
 
-useEffect(() => {
-  const userDataStringified: string | null = localStorage.getItem('userToken');
-  if (userDataStringified !== null) {
-    const userData = JSON.parse(userDataStringified);
-    dispatch(
-      setLogin({
-        user: userData.user.name,
-        token: userData.token,
-      })
-    );
-  }
-}, [dispatch]);
-
-
-const toastDetails:Toast = useAppSelector(state=>state.toast)
-
-
-
-
-
-
-
+  useEffect(() => {
+    const userDataStringified: string | null =
+      localStorage.getItem("userToken");
+    if (userDataStringified !== null) {
+      const userData = JSON.parse(userDataStringified);
+      dispatch(
+        setLogin({
+          user: userData.user.name,
+          token: userData.token,
+        })
+      );
+    }
+  }, [dispatch]);
+  
 
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
-         <Route path="/" element={<Home  auth={auth}/>} /> 
+        <Route path="/" element={<Home auth={auth} />} />
         <Route path="Create" element={<Create />} />
-        <Route path="Login" element={<Login toastDetails={toastDetails}/>} />
+        <Route path="Login" element={<Login toastDetails={toastDetails} />} />
         <Route path="Profile" element={<Profile />} />
         <Route path="SignUp" element={<SignUp toastDetails={toastDetails} />} />
       </Routes>

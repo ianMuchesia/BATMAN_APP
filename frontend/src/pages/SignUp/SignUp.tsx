@@ -8,14 +8,24 @@ import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { useAppDispatch } from "../../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { setLogin } from "../../store/authSlice";
-import { displayError, displayLoading, displaySuccess } from "../../store/toastSlice";
-const SignUp = () => {
+import {
+  displayError,
+  displayLoading,
+  displaySuccess,
+  displayWarning,
+} from "../../store/toastSlice";
+import { Toast, toastProps } from "../../@types/toast";
 
-  const dispatch = useAppDispatch()
-
-  const navigate = useNavigate()
+interface Props{
+  toastDetails:Toast
+}
+const SignUp = ({toastDetails}:Props) => {
+  const dispatch = useAppDispatch();
+  
+ 
+  const navigate = useNavigate();
   const [signUpForm, setSignUpForm] = useState({
     name: "",
     email: "",
@@ -34,26 +44,38 @@ const SignUp = () => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!signUpForm.email || !signUpForm || !signUpForm) {
+    if (!signUpForm.email || !signUpForm.name || !signUpForm.password) {
+     
+      toast.warning('please fill all the fields')
       return;
     }
-   dispatch(displayLoading("loading..."))
+     const toastID = toast.loading("loading...");
     try {
-      const {data} = await axios.post(
+      const { data } = await axios.post(
         "http://localhost:3000/api/v1/dalle/register",
         signUpForm
       );
 
       console.log(data);
-      dispatch(displaySuccess('Signed in'))
-      dispatch(setLogin({
-        user:data.user.name,
-      }))
-      navigate('/')
+      
+      dispatch(displaySuccess("Signed in"))
+      console.log(toastDetails)
+      toast.update(toastID,toastDetails);
+      localStorage.setItem("userToken", JSON.stringify(data));
+
+      dispatch(
+        setLogin({
+          user: data.user.name,
+        })
+      );
+      navigate("/");
     } catch (error: any) {
       console.log(error);
-
-     dispatch(displayError(error.response.data.msg))
+      
+       dispatch(displayError(error.response.data.msg))
+      console.log(toastDetails)
+toast.update(toastID,toastDetails)
+      
     }
   };
 
@@ -115,7 +137,6 @@ const SignUp = () => {
               Have an account? Click here Log in
             </Link>
           </div>
-         
         </form>
       </div>
     </section>

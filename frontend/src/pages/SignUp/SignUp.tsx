@@ -66,6 +66,7 @@ const SignUp = ({toastDetails}:Props) => {
       dispatch(
         setLogin({
           user: data.user.name,
+          token:data.token,
         })
       );
       navigate("/");

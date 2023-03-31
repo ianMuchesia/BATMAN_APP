@@ -65,7 +65,8 @@ const Login = ({ toastDetails }: Props) => {
           token,
         })
       );
-      navigate("/");
+      const redirect = new URLSearchParams(location.search).get("redirect");
+      navigate(redirect||"/");
     } catch (error: any) {
       console.log(error);
       dispatch(displayError(error.response.data.msg));

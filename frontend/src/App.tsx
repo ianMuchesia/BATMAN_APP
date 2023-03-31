@@ -8,8 +8,6 @@ import { useEffect, useMemo } from "react";
 
 function App() {
   const dispatch = useAppDispatch();
-  const auth = useAppSelector((state) => state.auth);
-  console.log(auth);
 
   const toastDetails: Toast = useAppSelector((state) => state.toast);
 
@@ -18,6 +16,7 @@ function App() {
       localStorage.getItem("userToken");
     if (userDataStringified !== null) {
       const userData = JSON.parse(userDataStringified);
+
       dispatch(
         setLogin({
           user: userData.user.name,
@@ -26,16 +25,15 @@ function App() {
       );
     }
   }, [dispatch]);
-  
 
   return (
     <BrowserRouter>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home auth={auth} />} />
-        <Route path="Create" element={<Create />} />
+        <Route path="/" element={<Home  />} />
+        <Route path="Create" element={<Create  />} />
         <Route path="Login" element={<Login toastDetails={toastDetails} />} />
-        <Route path="Profile" element={<Profile />} />
+        <Route path="Profile" element={<Profile  />} />
         <Route path="SignUp" element={<SignUp toastDetails={toastDetails} />} />
       </Routes>
       <Footer />

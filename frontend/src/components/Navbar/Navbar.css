@@ -13,6 +13,9 @@
   padding: 1.2em 3em;
   border-bottom:0.2px solid rgb(119, 57, 57);
 }
+.nav-bar h4{
+  margin: 0;
+}
 .navbar-right{
   display: flex;
   gap:0.3em;

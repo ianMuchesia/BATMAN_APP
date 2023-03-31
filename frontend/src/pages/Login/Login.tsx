@@ -11,7 +11,7 @@ import axios from "axios";
 import { Toast, toastProps } from "../../@types/toast";
 import { ToastContainer, toast } from "react-toastify";
 import { useAppDispatch } from "../../hooks/reduxHooks";
-import { displaySuccess } from "../../store/toastSlice";
+import { displayError, displaySuccess } from "../../store/toastSlice";
 import { setLogin } from "../../store/authSlice";
 
 interface Props {
@@ -39,12 +39,12 @@ const Login = ({ toastDetails }: Props) => {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-   console.log(loginForm)
+    console.log(loginForm);
     if (!loginForm.email || !loginForm.password) {
       toast.warning("please fill all the fields");
       return;
     }
-    console.log('i am here number 4')
+    console.log("i am here number 4");
     const toastID = toast.loading("loading...");
     try {
       const { data } = await axios.post(
@@ -58,15 +58,19 @@ const Login = ({ toastDetails }: Props) => {
       console.log(toastDetails);
       toast.update(toastID, toastDetails);
       localStorage.setItem("userToken", JSON.stringify(data));
-
+      const { user, token } = data;
       dispatch(
         setLogin({
-          user: data.user.name,
+          user: user.name,
+          token,
         })
       );
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      dispatch(displayError(error.response.data.msg));
+      console.log(toastDetails);
+      toast.update(toastID, toastDetails);
     }
   };
   return (
@@ -76,7 +80,7 @@ const Login = ({ toastDetails }: Props) => {
       }}
       className="login-section"
     >
-      <ToastContainer/>
+      <ToastContainer />
       <div className="login-section-container">
         <form className="login-card" onSubmit={handleSubmit}>
           <h1>Log in</h1>

@@ -33,7 +33,7 @@ const Create = () => {
     imageUrl: savedForm?.imageUrl || "",
   });
 
-  console.log(form.imageUrl)
+
   const handlePost = async () => {
     localStorage.setItem("formData", JSON.stringify(form));
     

@@ -1,6 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const { Configuration, OpenAIApi } = require("openai");
-const { BadRequestError } = require("../errors");
+const { BadRequestError , NotFoundError} = require("../errors");
 const Post = require("../models/Post");
 const cloudinary = require("cloudinary").v2;
 
@@ -42,7 +42,9 @@ const generateImageRequest = async (req, res) => {
 };
 
 const postRequest = async (req, res) => {
-  const { name, imageUrl,prompt } = req.body;
+  req.body.createdBy = req.user.userId
+  
+  const { name, imageUrl,prompt , createdBy} = req.body;
 
   if(!name || !imageUrl || !prompt ){
     throw new BadRequestError("Please provide the imageURl, prompt and name ")
@@ -61,6 +63,7 @@ const postRequest = async (req, res) => {
         imageUrl: cloudinaryImageUrl,
         name,
         prompt,
+        createdBy,
       }) 
 
   res.status(StatusCodes.CREATED). json({msg: "Success!"})

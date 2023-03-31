@@ -14,6 +14,11 @@ const postSchema = new Schema({
     imageUrl:{
         type: String,
         required: [true, 'image URL is a must']
+    },
+    createdBy:{
+        type:mongoose.Types.ObjectId,
+        ref:'User',
+        required:[true, 'Please provide user']
     }
 },
 {timestamps: true}

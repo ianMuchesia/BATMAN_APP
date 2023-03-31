@@ -29,7 +29,7 @@ const CreateForm = ({ form, setForm }: Props) => {
   //loader
   const [loading, setLoading] = useState(false);
 
-  //form data stored in local storage
+
 
   const handleFormChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm((prevForm) => {

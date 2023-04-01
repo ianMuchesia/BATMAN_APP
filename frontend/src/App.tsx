@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home, Create, SignUp, Profile, Login } from "./pages";
-import { Footer, Modal, Navbar } from "./components";
+import { Footer, Modal, MemoizedNavbar } from "./components";
 import { useAppDispatch, useAppSelector } from "./hooks/reduxHooks";
 import { Toast } from "./@types/toast";
 import { setLogin } from "./store/authSlice";
@@ -11,6 +11,9 @@ function App() {
 
   const toastDetails: Toast = useAppSelector((state) => state.toast);
 
+  const modalState = useAppSelector((state)=>state.modal.display)
+
+  console.log(modalState)
   useEffect(() => {
     const userDataStringified: string | null =
       localStorage.getItem("userToken");
@@ -28,8 +31,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Navbar />
-      <Modal/>
+      <MemoizedNavbar />
+      {modalState && <Modal/>}
       <Routes>
         <Route path="/" element={<Home  />} />
         <Route path="Create" element={<Create  />} />

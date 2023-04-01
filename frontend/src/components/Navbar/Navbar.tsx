@@ -5,7 +5,7 @@ import {BsFillPersonCheckFill} from 'react-icons/bs'
 import './Navbar.css'
 import { useAppSelector } from '../../hooks/reduxHooks'
 
-const Navbar = () => {
+export const Navbar = () => {
  const auth = useAppSelector(state=>state.auth)
  console.log(auth)
   return (
@@ -27,4 +27,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export const MemoizedNavbar = React.memo(Navbar)

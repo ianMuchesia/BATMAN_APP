@@ -4,11 +4,12 @@ import "./Profile.css";
 import useSWR from 'swr'
 import { BatmanCreate } from "../../assets";
 import { Auth } from "../../@types/Auth";
-import { useAppSelector } from "../../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import axios from "axios";
 import { Posts } from "../../@types/posts";
 import {MemoizedProfileDetails} from "./ProfileDetails";
 import ProfileCard from "./ProfileCard";
+import { setUserPosts } from "../../store/postSlice";
 
 
 
@@ -18,8 +19,11 @@ import ProfileCard from "./ProfileCard";
 
 const Profile = () => {
 
+  const dispatch = useAppDispatch()
+
   const auth = useAppSelector((state) => state.auth);
-  const [posts , setPosts] = useState<Posts[]>([]);
+ 
+  const userPosts  = useAppSelector((state)=>state.post.userPosts)
   
   const headers = {
     Authorization: `Bearer ${auth.token}`
@@ -35,7 +39,7 @@ const Profile = () => {
   
   useEffect(() => {
     if (postsData) {
-      setPosts(postsData);
+      dispatch(setUserPosts(postsData));
     }
   }, [postsData]);
 
@@ -55,7 +59,7 @@ const Profile = () => {
         <MemoizedProfileDetails/>
         <h1> Your Prompts</h1>
         <div className="profile-posts">
-         {posts && posts.map(post=>{
+         {userPosts && userPosts.map(post=>{
           return(
            <ProfileCard key={post._id} post={post} headers={headers}/>
           )

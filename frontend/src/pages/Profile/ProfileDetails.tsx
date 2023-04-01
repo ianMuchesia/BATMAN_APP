@@ -10,6 +10,7 @@ export const ProfileDetails = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const auth = useAppSelector((state) => state.auth);
+  
 
   const handleSignOut = () => {
     localStorage.removeItem("userToken");

@@ -2,6 +2,7 @@ import {configureStore } from '@reduxjs/toolkit'
 import postSlice from './postSlice'
 import authSlice from './authSlice'
 import toastSlice from './toastSlice'
+import modalSlice from './modalSlice'
 
 
 const store = configureStore({
@@ -9,6 +10,7 @@ const store = configureStore({
         post:postSlice.reducer,
         auth:authSlice,
         toast:toastSlice,
+        modal:modalSlice,
     }
 })
 

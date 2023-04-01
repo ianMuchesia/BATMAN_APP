@@ -16,7 +16,7 @@ const Home = () => {
   const [posts , setPosts] = useState<Posts[]>([])
 
 
-const { error, isLoading} = useSWR<Posts[]>('http://localhost:3000/api/v1/dalle', fetcher, {
+const { error, isLoading} = useSWR<Posts[]>('http://localhost:3000/api/v1/dalle/posts', fetcher, {
   onSuccess: (data:Posts[])=>{
     setPosts(data)
   }

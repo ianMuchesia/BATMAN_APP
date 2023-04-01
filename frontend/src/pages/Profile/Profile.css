@@ -23,21 +23,32 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    gap:1em;
     height:calc(60vh - (6rem + 4rem));
+    margin-bottom: 2em;
 }
 .profile-icon{
-    height: 6em;
-    width:6em;
+    height: 10rem;
+    width:10rem;
+}
+.profile-logout{
+    background-color: var(--color-red);
+    opacity: 0.8;
+    padding: 0.5em 0.8em;
+    font-size: 1em;
+    border-radius: 0.5rem;
+    border: none;
+    color: var(--color-white);
+    display: flex;
 }
 .profile-posts{
-    padding: 5rem;
+    padding: 0.5rem 5rem;
     display: grid;
 }
 
 .prompt-card{
     display: flex;
     flex-direction: column;
+    cursor: pointer;
 }
 .prompt-card{
     object-fit: contain;
@@ -47,16 +58,18 @@
 @media screen and (min-width: 480px) {
     .profile-posts{
         grid-template-columns: 1fr 1fr;   
+        gap: 1rem;
     }
      
 }
 @media screen and (min-width: 780px) {
     .profile-posts{
-        grid-template-columns: 1fr 1fr 1fr;   
+        grid-template-columns: 1fr 1fr 1fr;  
+        gap: 1.5rem; 
     }
      
 }
-@media screen and (min-width: 780px) {
+@media screen and (min-width: 1280px) {
     .profile-posts{
         grid-template-columns: 1fr 1fr 1fr 1fr;   
     }

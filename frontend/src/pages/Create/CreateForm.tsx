@@ -88,10 +88,11 @@ const CreateForm = ({ form, setForm }: Props) => {
       <label htmlFor="yourName">Your Name</label>
       <input
         type="text"
-        placeholder="enter your name here"
+        placeholder="name for your post here"
         className="input-name"
         id="yourName"
         name="name"
+        autoComplete="off"
         value={form.name}
         onChange={handleFormChange}
       />
@@ -107,6 +108,7 @@ const CreateForm = ({ form, setForm }: Props) => {
         id="prompt"
         className="prompt-input"
         name="prompt"
+        autoComplete="off"
         value={form.prompt}
         onChange={handleFormChange}
       />

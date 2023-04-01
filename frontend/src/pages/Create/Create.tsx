@@ -41,10 +41,13 @@ const Create = () => {
       navigate(`/Login?redirect=${location.pathname}`);
       return;
     }
+    const headers = {
+      Authorization:`Bearer ${auth.token}`
+    }
     try {
       const response = await axios.post(
         "http://localhost:3000/api/v1/dalle/community",
-        form
+        form, {headers}
       );
       if (response.data.msg === "Success!") {
         navigate("/");

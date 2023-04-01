@@ -6,7 +6,7 @@ const DalleRouter = require('./routes/route')
 const errorHandlerMiddleware = require('./middlewares/error-handler')
 const notFound = require('./middlewares/not-found')
 const connectDB = require('./database/connect')
-const authenticateUser = require('./middlewares/authentication')
+
 const authRoute = require('./routes/auth')
 const app = express()
 

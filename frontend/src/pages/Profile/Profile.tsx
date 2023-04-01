@@ -7,7 +7,7 @@ import { Auth } from "../../@types/Auth";
 import { useAppSelector } from "../../hooks/reduxHooks";
 import axios from "axios";
 import { Posts } from "../../@types/posts";
-import ProfileDetails from "./ProfileDetails";
+import {MemoizedProfileDetails} from "./ProfileDetails";
 import ProfileCard from "./ProfileCard";
 
 
@@ -52,12 +52,12 @@ const Profile = () => {
       }}
     >
       <div className="profile-container">
-        <ProfileDetails/>
+        <MemoizedProfileDetails/>
         <h1> Your Prompts</h1>
         <div className="profile-posts">
          {posts && posts.map(post=>{
           return(
-           <ProfileCard key={post._id} post={post}/>
+           <ProfileCard key={post._id} post={post} headers={headers}/>
           )
          }) }
         </div>

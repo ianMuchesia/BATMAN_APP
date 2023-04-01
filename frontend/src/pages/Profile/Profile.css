@@ -48,21 +48,41 @@
 .prompt-card{
     display: flex;
     flex-direction: column;
-    cursor: pointer;
+    
 }
-.prompt-card{
+.prompt-card img{
     object-fit: contain;
     height:auto;
     min-width: 100%;
 }
-@media screen and (min-width: 480px) {
+.profile-img-container{
+    position: relative;
+}
+.delete-button{
+    position: absolute;
+    top:0.1em;
+    right:0.1em;
+    color: rgba(218, 9, 9, 0.7);
+    font-size: 4em;
+    display: none;
+    cursor: pointer;
+    transition: 0.5s ease-in-out;
+}
+.delete-button:hover{
+    transform: scale(1.2);
+}
+.prompt-card .profile-img-container:hover > .delete-button {
+    display: block;
+  }
+  
+@media screen and (min-width: 620px) {
     .profile-posts{
         grid-template-columns: 1fr 1fr;   
         gap: 1rem;
     }
      
 }
-@media screen and (min-width: 780px) {
+@media screen and (min-width: 920px) {
     .profile-posts{
         grid-template-columns: 1fr 1fr 1fr;  
         gap: 1.5rem; 

@@ -50,6 +50,7 @@ const Create = () => {
         form, {headers}
       );
       if (response.data.msg === "Success!") {
+        localStorage.removeItem('formData')
         navigate("/");
       }
     } catch (error) {

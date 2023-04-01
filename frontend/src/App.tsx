@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Home, Create, SignUp, Profile, Login } from "./pages";
-import { Footer, Navbar } from "./components";
+import { Footer, Modal, Navbar } from "./components";
 import { useAppDispatch, useAppSelector } from "./hooks/reduxHooks";
 import { Toast } from "./@types/toast";
 import { setLogin } from "./store/authSlice";
@@ -29,6 +29,7 @@ function App() {
   return (
     <BrowserRouter>
       <Navbar />
+      <Modal/>
       <Routes>
         <Route path="/" element={<Home  />} />
         <Route path="Create" element={<Create  />} />
